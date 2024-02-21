@@ -9,6 +9,16 @@
 .input::placeholder {
   color: #797979;
 }
+.input:focus {
+  outline: none;
+  caret-color: #000;
+}
+.input:hover {
+  background-color: #e7e7e7;
+}
+.error:hover {
+  background-color: #ecc0c4;
+}
 
 .error {
   background-color: #ecc0c4;

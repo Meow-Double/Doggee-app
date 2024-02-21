@@ -11,8 +11,21 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  height: 500px;
 }
+.header {
+  height: 150px;
+  background-color: #efc680;
+  width: 100%;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  padding: 16px;
+  font-size: 40px;
+}
+
 .containerForm {
   padding: 0 100px;
 }
@@ -21,4 +34,12 @@
   margin-bottom: 10px;
   display: flex;
   flex-direction: column;
+}
+
+.signUp {
+  color: #efc680;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 15px;
+  cursor: pointer;
 }

@@ -1,8 +1,8 @@
-import { FC, HTMLProps } from 'react';
+import { ButtonHTMLAttributes, FC, PropsWithChildren } from 'react';
 
 import styles from './Button.module.css';
 
-interface ButtonProps extends HTMLProps<HTMLButtonElement> {}
+type ButtonProps = ButtonHTMLAttributes<PropsWithChildren>;
 
 export const Button: FC<ButtonProps> = ({ children }) => {
   return <button className={styles.button}>{children}</button>;
