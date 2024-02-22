@@ -1,12 +1,7 @@
-import { FC, InputHTMLAttributes } from 'react';
+import { FC, useRef, useState } from 'react';
 
-import styles from './Input.module.css';
-
-interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'placeholder'> {
-  label: string;
-  isError?: boolean;
-  helperText?: string;
-}
+import styles from '../input.module.css';
+import { InputProps } from '../types';
 
 export const Input: FC<InputProps> = ({
   isError = false,
@@ -16,13 +11,29 @@ export const Input: FC<InputProps> = ({
 }) => {
   const className = isError ? styles.error : '';
 
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [isFocus, setFocus] = useState(!props.value ?? false);
+
   return (
-    <div>
-      <label htmlFor="" className="label">
-        {label}
-      </label>
-      <input className={`${styles.input} ${className}`} type="text" {...props} />
+    <>
+      <div
+        className={`${styles.inputContainer} ${className} ${isFocus ? styles.focused : ''}`}
+        onClick={() => {
+          inputRef.current?.focus(), setFocus(true);
+        }}
+      >
+        <label htmlFor="" className={styles.inputLabel}>
+          {label}
+        </label>
+        <input
+          ref={inputRef}
+          className={styles.input}
+          type="text"
+          onBlur={() => !props.value && setFocus(false)}
+          {...props}
+        />
+      </div>
       {isError && <div className={styles.helperText}>{helperText}</div>}
-    </div>
+    </>
   );
 };

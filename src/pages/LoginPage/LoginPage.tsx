@@ -3,7 +3,7 @@ import { ChangeEvent, ReactNode, useState } from 'react';
 import styles from './LoginPage.module.css';
 
 import { Button } from 'common/buttons';
-import { Input, PasswordInput } from 'common/fields';
+import { CheckBox, Input, PasswordInput } from 'common/fields';
 
 const validateIsEmpty = (value: string): null | string => {
   if (!value) return 'field requierd';
@@ -31,7 +31,11 @@ interface FormErrors {
   password: string | null;
 }
 export const LoginPage = (): ReactNode => {
-  const [formValues, setFormValues] = useState({ username: '', password: '' });
+  const [formValues, setFormValues] = useState({
+    username: '',
+    password: '',
+    notMyComputer: false,
+  });
   const [formErrors, setFormErrors] = useState<FormErrors>({
     username: null,
     password: null,
@@ -65,7 +69,7 @@ export const LoginPage = (): ReactNode => {
             {' '}
             <PasswordInput
               value={formValues.password}
-              placeholder="password"
+              label="password"
               onChange={(event: ChangeEvent<HTMLInputElement>) => {
                 const password = event.target.value;
 
@@ -80,9 +84,20 @@ export const LoginPage = (): ReactNode => {
               })}
             />
           </div>
+          <div className={styles.inputContainer}>
+            <CheckBox
+              label="Text about"
+              checked={formValues.notMyComputer}
+              onChange={(event: ChangeEvent<HTMLInputElement>) => {
+                const notMyComputer = event.target.checked;
+
+                setFormValues((prev) => ({ ...prev, notMyComputer }));
+              }}
+            />
+          </div>
           <div>
             {' '}
-            <Button>Sign in</Button>
+            <Button isLoading>Sign in</Button>
           </div>
         </div>
         <div className={styles.signUp}>Create new account</div>

@@ -1,0 +1,60 @@
+.inputContainer {
+  background-color: #d3d3d3;
+  border-radius: 4px;
+  padding: 20px 15px 9px;
+  width: 100%;
+  display: flex;
+  position: relative;
+  height: 48px;
+  cursor: text;
+}
+
+.input {
+  outline: none;
+  width: 100%;
+  border: none;
+  background-color: transparent;
+}
+
+.inputLabel {
+  position: absolute;
+  left: 15px;
+  top: 15px;
+  color: #555;
+  z-index: 1;
+  transition:
+    transform 0.3s ease-in-out,
+    font-size 0.3s ease-in-out;
+  font-size: 14px;
+  text-transform: capitalize;
+  pointer-events: none;
+}
+
+.focused .inputLabel {
+  transform: translate(-10%, -80%);
+  font-size: 10px;
+}
+
+/* .inputContainer::placeholder {
+    color: #797979;
+  } */
+.inputContainer:focus {
+  outline: none;
+  caret-color: #000;
+}
+.inputContainer:hover {
+  background-color: #e7e7e7;
+}
+.error:hover {
+  background-color: #ecc0c4;
+}
+
+.error {
+  background-color: #ecc0c4;
+}
+
+.helperText {
+  color: #ecc0c4;
+  font-size: 16px;
+  margin-left: 10px;
+}

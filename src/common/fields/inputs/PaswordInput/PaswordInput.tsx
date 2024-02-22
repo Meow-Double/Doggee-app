@@ -1,34 +1,65 @@
-import { FC, HTMLProps, useState } from 'react';
+import { FC, useRef, useState } from 'react';
 
-import styles from '../Input/Input.module.css';
-
-interface InputProps extends Omit<HTMLProps<HTMLInputElement>, 'type'> {
-  isError?: boolean;
-  helperText?: string;
-}
+import styles from '../input.module.css';
+import { InputProps } from '../types';
 
 export const PasswordInput: FC<InputProps> = ({
   isError = false,
   helperText,
+  label,
   ...props
 }) => {
-  const [showPasword, setShowPassword] = useState(false);
   const className = isError ? styles.error : '';
+
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [isFocus, setFocus] = useState(!props.value ?? false);
+  const [showPasword, setShowPassword] = useState(false);
   const showPasswordToggle = props.value;
 
   return (
-    <div>
-      <input
-        className={`${styles.input} ${className}`}
-        {...props}
-        type={showPasswordToggle && showPasword ? 'text' : 'password'}
-      />
+    <>
+      <div
+        className={`${styles.inputContainer} ${className} ${isFocus ? styles.focused : ''}`}
+        onClick={() => {
+          inputRef.current?.focus(), setFocus(true);
+        }}
+      >
+        <label htmlFor="" className={styles.inputLabel}>
+          {label}
+        </label>
+        <input
+          ref={inputRef}
+          className={styles.input}
+          onBlur={() => !props.value && setFocus(false)}
+          {...props}
+          type={showPasswordToggle && showPasword ? 'text' : 'password'}
+        />
+      </div>
       {isError && <div className={styles.helperText}>{helperText}</div>}
       {showPasswordToggle && (
-        <button onClick={() => setShowPassword((prev) => !prev)}>
+        <button type="button" onClick={() => setShowPassword((prev) => !prev)}>
           {showPasword ? 'show' : 'hide'}
         </button>
       )}
-    </div>
+    </>
   );
 };
+
+// export const PasswordInput: FC<InputProps> = ({
+//   isError = false,
+//   helperText,
+//   ...props
+// }) => {
+
+//   return (
+//     <div>
+//       <input
+//         className={`${styles.input} ${className}`}
+//         {...props}
+
+//       />
+//       {isError && <div className={styles.helperText}>{helperText}</div>}
+
+//     </div>
+//   );
+// };
